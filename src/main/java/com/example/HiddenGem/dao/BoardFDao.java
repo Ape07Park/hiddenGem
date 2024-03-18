@@ -14,8 +14,8 @@ public interface BoardFDao {
 	
 	@Select("SELECT b.*, u.uname FROM boardF b"
 			+ " JOIN users u ON b.uid=u.uid"
-			+ "	WHERE b.bid=#{bid}")
-	BoardF getBoardF(int bid);
+			+ "	WHERE b.fid=#{fid}")
+	BoardF getBoardF(int fid);
 	
 	@Select("select count(b.fid) from boardF b"
 	         + " JOIN users u ON b.uid=u.uid"
@@ -35,9 +35,9 @@ public interface BoardFDao {
 			+ " default, #{foodImg})")
 	void insertBoardF(BoardF board);
 	
-	@Update("update boardF set ${field}=${field}+1 where bid=#{bid}")
-	void increaseCount(String field, int bid);
+	@Update("update boardF set ${field}=${field}+1 where fid=#{fid}")
+	void increaseCount(String field, int fid);
 	
-	@Update("update boardF set likeCount=#{count} where bid=#{bid}")
-	void updateLikeCount(int bid, int count);
+	@Update("update boardF set likeCount=#{count} where fid=#{fid}")
+	void updateLikeCount(int fid, int count);
 }

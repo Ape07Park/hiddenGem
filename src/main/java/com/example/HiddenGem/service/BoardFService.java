@@ -11,7 +11,7 @@ public interface BoardFService {
 	public static final int COUNT_PER_PAGE = 6; // 한 페이지당 글의 목록 및 갯수
 	public static final int PAGE_PER_SCREEN = 10; // 한 화면에 표시되는 페이지 갯수
 	
-	BoardF getBoard(int bid);
+	BoardF getBoardF(int fid);
 	
 	int getBoardFCount(String field, String query);
 	
@@ -19,11 +19,11 @@ public interface BoardFService {
 	
 	void insertBoardF(BoardF boardF);
 	
-	void increaseViewCount(int bid);
+	void increaseViewCount(int fid);
 	
-	void increaseReplyCount(int bid);
+	void increaseReplyCount(int fid);
 	
-	void increaseLikeCount(int bid);
+	void increaseLikeCount(int fid);
 	
-	void updateLikeCount(int bid, int count);
+	void updateLikeCount(int fid, int count);
 }

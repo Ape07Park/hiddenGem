@@ -11,7 +11,6 @@
 	<script src="https://cdn.ckeditor.com/4.20.1/standard/ckeditor.js"></script>
 </head>
 
-
 	<div th:insert="~{fragments/base :: top}"></div>
 
 	<div class="container" style="margin-top:80px">
@@ -54,7 +53,11 @@
 									</tr>
 									<tr>
 										<td><label class="col-form-label">음식 이미지</label></td>
-										<td><textarea class="form-control" rows="10" name="content" id="content"></textarea></td> <!-- multiple: 여러 개 첨부 가능-->
+										<td><textarea class="form-control" rows="10" name="content" ></textarea></td> <!-- multiple: 여러 개 첨부 가능-->
+									</tr>
+									<tr>
+										<td><label class="col-form-label">첨부 파일</label></td>
+										<td><input type="file" name="files" class="form-control" multiple></td>
 									</tr>
 
 									<tr>
@@ -77,7 +80,7 @@
 	<script>
 		CKEDITOR.replace('content', { // content 
 			// 이미지 첨부 시 사용
-			filebrowserImageUploadUrl: '/hiddenGem/file/imageUpload',
+			filebrowserImageUploadUrl: '/mid/file/imageUpload',
 			filebrowserUploadMethod: 'form',
 			height: 300, width: 700
 		}); 

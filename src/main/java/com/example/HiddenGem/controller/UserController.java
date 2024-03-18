@@ -94,7 +94,7 @@ public class UserController {
 			log.info("Info Login: {}, {}", uid, user.getUname());
 			model.addAttribute("msg", user.getUname() + "님 환영합니다.");
 			
-			model.addAttribute("url", "/mid/boardc/listc");
+			model.addAttribute("url", "/mid/boardf/list");
 			break;
 
 		case UserService.USER_NOT_EXIST:

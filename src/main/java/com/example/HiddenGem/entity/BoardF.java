@@ -13,6 +13,7 @@ public class BoardF {
 	private String info;
 	private String foodImg;
 	private int isDeleted;
+	private String uname;
 	
 	// 메뉴랑 연결 
 //	private int mid;
@@ -36,9 +37,15 @@ public class BoardF {
 	}
 
 
+	
+	
+	
+
+
 	public BoardF(int fid, String title, String foodCategory, String opening, String location, String tel, String info,
-			String foodImg, int isDeleted, String uid, int viewCount, int likeCount, int replyCount,
+			String foodImg, int isDeleted, String uname, String uid, int viewCount, int likeCount, int replyCount,
 			LocalDateTime modTime) {
+		super();
 		this.fid = fid;
 		this.title = title;
 		this.foodCategory = foodCategory;
@@ -48,14 +55,18 @@ public class BoardF {
 		this.info = info;
 		this.foodImg = foodImg;
 		this.isDeleted = isDeleted;
+		this.uname = uname;
 		this.uid = uid;
 		this.viewCount = viewCount;
 		this.likeCount = likeCount;
 		this.replyCount = replyCount;
 		this.modTime = modTime;
 	}
-	
-	
+
+
+
+
+
 
 
 	public BoardF(String title, String foodCategory, String opening, String location, String tel, String info, String uid,
@@ -72,9 +83,19 @@ public class BoardF {
 	}
 
 
+
+
+
+
+
 	public int getFid() {
 		return fid;
 	}
+
+
+
+
+
 
 
 	public void setFid(int fid) {
@@ -82,9 +103,19 @@ public class BoardF {
 	}
 
 
+
+
+
+
+
 	public String getTitle() {
 		return title;
 	}
+
+
+
+
+
 
 
 	public void setTitle(String title) {
@@ -92,9 +123,19 @@ public class BoardF {
 	}
 
 
+
+
+
+
+
 	public String getFoodCategory() {
 		return foodCategory;
 	}
+
+
+
+
+
 
 
 	public void setFoodCategory(String foodCategory) {
@@ -102,9 +143,19 @@ public class BoardF {
 	}
 
 
+
+
+
+
+
 	public String getOpening() {
 		return opening;
 	}
+
+
+
+
+
 
 
 	public void setOpening(String opening) {
@@ -112,9 +163,19 @@ public class BoardF {
 	}
 
 
+
+
+
+
+
 	public String getLocation() {
 		return location;
 	}
+
+
+
+
+
 
 
 	public void setLocation(String location) {
@@ -122,9 +183,19 @@ public class BoardF {
 	}
 
 
+
+
+
+
+
 	public String getTel() {
 		return tel;
 	}
+
+
+
+
+
 
 
 	public void setTel(String tel) {
@@ -132,9 +203,19 @@ public class BoardF {
 	}
 
 
+
+
+
+
+
 	public String getInfo() {
 		return info;
 	}
+
+
+
+
+
 
 
 	public void setInfo(String info) {
@@ -142,9 +223,19 @@ public class BoardF {
 	}
 
 
+
+
+
+
+
 	public String getFoodImg() {
 		return foodImg;
 	}
+
+
+
+
+
 
 
 	public void setFoodImg(String foodImg) {
@@ -152,9 +243,19 @@ public class BoardF {
 	}
 
 
+
+
+
+
+
 	public int getIsDeleted() {
 		return isDeleted;
 	}
+
+
+
+
+
 
 
 	public void setIsDeleted(int isDeleted) {
@@ -162,9 +263,39 @@ public class BoardF {
 	}
 
 
+
+
+
+
+
+	public String getUname() {
+		return uname;
+	}
+
+
+
+
+
+
+
+	public void setUname(String uname) {
+		this.uname = uname;
+	}
+
+
+
+
+
+
+
 	public String getUid() {
 		return uid;
 	}
+
+
+
+
+
 
 
 	public void setUid(String uid) {
@@ -172,9 +303,19 @@ public class BoardF {
 	}
 
 
+
+
+
+
+
 	public int getViewCount() {
 		return viewCount;
 	}
+
+
+
+
+
 
 
 	public void setViewCount(int viewCount) {
@@ -182,9 +323,19 @@ public class BoardF {
 	}
 
 
+
+
+
+
+
 	public int getLikeCount() {
 		return likeCount;
 	}
+
+
+
+
+
 
 
 	public void setLikeCount(int likeCount) {
@@ -192,9 +343,19 @@ public class BoardF {
 	}
 
 
+
+
+
+
+
 	public int getReplyCount() {
 		return replyCount;
 	}
+
+
+
+
+
 
 
 	public void setReplyCount(int replyCount) {
@@ -202,9 +363,19 @@ public class BoardF {
 	}
 
 
+
+
+
+
+
 	public LocalDateTime getModTime() {
 		return modTime;
 	}
+
+
+
+
+
 
 
 	public void setModTime(LocalDateTime modTime) {
@@ -212,13 +383,20 @@ public class BoardF {
 	}
 
 
+
+
+
+
+
 	@Override
 	public String toString() {
 		return "BoardF [fid=" + fid + ", title=" + title + ", foodCategory=" + foodCategory + ", opening=" + opening
 				+ ", location=" + location + ", tel=" + tel + ", info=" + info + ", foodImg=" + foodImg + ", isDeleted="
-				+ isDeleted + ", uid=" + uid + ", viewCount=" + viewCount + ", likeCount=" + likeCount + ", replyCount="
-				+ replyCount + ", modTime=" + modTime + "]";
+				+ isDeleted + ", uname=" + uname + ", uid=" + uid + ", viewCount=" + viewCount + ", likeCount="
+				+ likeCount + ", replyCount=" + replyCount + ", modTime=" + modTime + "]";
 	}
+
+
 	
 	
 

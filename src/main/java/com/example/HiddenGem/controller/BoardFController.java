@@ -1,7 +1,7 @@
 package com.example.HiddenGem.controller;
 
 import java.io.File;
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +18,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.HiddenGem.entity.BoardF;
+import com.example.HiddenGem.entity.Reply;
 import com.example.HiddenGem.service.BoardFService;
+import com.example.HiddenGem.service.ReplyService;
 import com.example.HiddenGem.util.JsonUtil;
 
 import jakarta.servlet.http.HttpSession;
-
 
 @Controller
 @RequestMapping("/boardf")
@@ -34,17 +35,23 @@ public class BoardFController {
 	private BoardFService boardFService;
 	@Autowired
 	private JsonUtil jsonUtil;
+	@Autowired
+	ReplyService replyService;
+
 	// 다른 변수 더 넣을 공간
-	
-	
-	@Value("${spring.servlet.multipart.location}") private String uploadDir;
-	
+
+	@Value("${spring.servlet.multipart.location}")
+	private String uploadDir;
+
 	/*
 	 * 여기부터 구현
 	 */
-	
-@GetMapping("/list") // 이름은 p로하고 값이 없으면 1로
-	
+
+	/*
+	 * list
+	 */
+	@GetMapping("/list") // 이름은 p로하고 값이 없으면 1로
+
 	public String list(@RequestParam(name = "p", defaultValue = "1") int page,
 			@RequestParam(name = "f", defaultValue = "title") String field,
 			@RequestParam(name = "q", defaultValue = "") String query, HttpSession session, Model model) {
@@ -56,8 +63,8 @@ public class BoardFController {
 		// 자바의 기본값이 double이니 double 사용함
 		int totalPages = (int) Math.ceil(totalBoardCount / (double) BoardFService.COUNT_PER_PAGE);
 
-		int startPage = (int) Math.ceil((page - 0.5) / BoardFService.PAGE_PER_SCREEN - 1) * BoardFService.PAGE_PER_SCREEN
-				+ 1;
+		int startPage = (int) Math.ceil((page - 0.5) / BoardFService.PAGE_PER_SCREEN - 1)
+				* BoardFService.PAGE_PER_SCREEN + 1;
 		int endPage = Math.min(totalPages, startPage + BoardFService.PAGE_PER_SCREEN - 1);
 		List<String> pageList = new ArrayList<>();
 		for (int i = startPage; i <= endPage; i++) {
@@ -78,47 +85,87 @@ public class BoardFController {
 		return "boardf/list";
 	}
 
+	/*
+	 * insert
+	 */
+
 	@GetMapping("/insert")
 	public String insertForm(Model model) {
 		return "boardf/insert";
 	}
 
 	@PostMapping("/insert")
-	public String insertProc(String title, String foodCategory, String opening,  
-	        String location, String tel, String info, String uid,
-	        MultipartHttpServletRequest req, HttpSession session) {
-	    
-	    String sessUid = (String) session.getAttribute("sessUid");
-	    List<MultipartFile> uploadFileList = req.getFiles("files");
+	public String insertProc(String title, String foodCategory, String opening, String location, String tel,
+			String info, String content, String uid, MultipartHttpServletRequest req, HttpSession session) {
 
-	    List<String> fileList = new ArrayList<>();
-	    for (MultipartFile part: uploadFileList) { 
-	        // 첨부 파일이 없는 경우 - application/octet-stream
-	        if (part.getContentType().contains("octet-stream"))
-	            continue;
-	        
-	        String filename = part.getOriginalFilename();
-	        String uploadPath = uploadDir  + "foodUpload/" + filename;
-	        try {
-	            part.transferTo(new File(uploadPath));
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	        String fileUrl = "/foodUpload/" + filename; // 이미지의 원본 주소 생성
-	        fileList.add(fileUrl); // 이미지의 원본 주소를 리스트에 추가
-	    }
-	    String files = jsonUtil.list2Json(fileList);
-	    
-	    // boardf에 들어가야 하는 것
-	    BoardF board = new BoardF( title, foodCategory, opening, location,  
-	            tel, info, sessUid, files);
-	    boardFService.insertBoardF(board);
-	    return "redirect:/boardf/list";
+		String sessUid = (String) session.getAttribute("sessUid");
+		String foodImg = content;
+ 
+		// boardf에 들어가야 하는 것
+		BoardF board = new BoardF(title, foodCategory, opening, location, tel, info, sessUid, foodImg);
+		boardFService.insertBoardF(board);
+		return "redirect:/boardf/list";
 	}
 
-	// detail 넣을 자리
+	/*
+	 * detail
+	 */
+	@GetMapping("/detail/{fid}/{uid}")
+	public String detail(@PathVariable int fid, @PathVariable String uid, String option, HttpSession session,
+			Model model) {
+		// 본인이 조회 시 or 댓글 작성 후에는 조회수 증가 x
+		String sessUid = (String) session.getAttribute("sessUid");
+		if (!uid.equals(sessUid) && (option == null || option.equals(""))) {
+			boardFService.increaseViewCount(fid);
+		}
 
+		BoardF boardf = boardFService.getBoardF(fid);
+//		String jsonFiles = boardf.getFoodImg();
+//
+//		// jsonFiles 빈 거 방지, json을 파일로 만들어서 보냄
+//		if (!(jsonFiles == null || jsonFiles.equals(""))) {
+//			List<String> fileList = jsonUtil.json2List(jsonFiles);
+//			model.addAttribute("fileList", fileList);
+//
+//		}
 
-	// reply, like 처리 자리
-	
+		model.addAttribute("boardf", boardf);
+
+//		// 좋아요 처리
+//		 LikeF like = likeService.getLike(bid, sessUid);
+//		 if(like == null) {
+//			 session.setAttribute("likeClicked", 1);
+//			 
+//		 } else {
+//			 session.setAttribute("likeClicked", like.getValue());
+//		 }		
+//		 
+//		model.addAttribute("count", board.getLikeCount());
+
+		/*
+		 * reply 보여주기
+		 */
+
+		List<Reply> replyList = replyService.getReplyList(fid);
+		model.addAttribute("replyList", replyList);
+		System.out.println(replyList);
+//		model.addAttribute("menu" , menu);
+		return "boardf/detail";
+	}
+
+	/*
+	 * reply 등록
+	 */
+	@PostMapping("/reply") // 로그인한 사람 누구인지 알기 위해 HttpSession session 사용
+	public String reply(int fid, String uid, String comment, HttpSession session) {
+		String sessUid = (String) session.getAttribute("sessUid");
+		int isMine = (sessUid.equals(uid)) ? 1 : 0;
+		Reply reply = new Reply(comment, isMine, sessUid, fid);
+
+		replyService.insertReply(reply);
+		boardFService.increaseReplyCount(fid);
+
+		return "redirect:/boardf/detail/" + fid + "/" + uid + "?option=DNI";
+	}
+
 }

@@ -13,8 +13,8 @@ public class BoardFServiceImpl implements BoardFService {
 	@Autowired BoardFDao boardFDao;
 	
 	@Override
-	public BoardF getBoard(int bid) {
-		return boardFDao.getBoardF(bid);
+	public BoardF getBoardF(int fid) {
+		return boardFDao.getBoardF(fid);
 	}
 
 	@Override
@@ -38,28 +38,28 @@ public class BoardFServiceImpl implements BoardFService {
 
 
 	@Override
-	public void increaseViewCount(int bid) {
+	public void increaseViewCount(int fid) {
 		String field = "viewCount";
-		boardFDao.increaseCount(field, bid);
+		boardFDao.increaseCount(field, fid);
 	}
 
 	@Override
-	public void increaseReplyCount(int bid) {
+	public void increaseReplyCount(int fid) {
 		String field = "replyCount";
-		boardFDao.increaseCount(field, bid);
+		boardFDao.increaseCount(field, fid);
 		
 	}
 
 	@Override
-	public void increaseLikeCount(int bid) {
+	public void increaseLikeCount(int fid) {
 		String field = "likeCount";
-		boardFDao.increaseCount(field, bid);
+		boardFDao.increaseCount(field, fid);
 		
 	}
 
 	@Override
-	public void updateLikeCount(int bid, int count) {
-		boardFDao.updateLikeCount(bid, count);
+	public void updateLikeCount(int fid, int count) {
+		boardFDao.updateLikeCount(fid, count);
 		
 	}
 

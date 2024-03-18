@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<header th:replace="~{fragments/base :: head}"></header>
 	<style>
-		td, th { text-align: center; }
+		td,
+		th {
+			text-align: center;
+		}
 	</style>
-	<script th:inline="javascript">
-		function likeClick(bid) {
+	<!-- <script th:inline="javascript">
+		function likeClick(fid) {
 			let oldCount = $('#likeCount').text(); // 서버 갔다오기 전 원래 있던 좋아요 갯수를 우선 받기. 클릭이 발생했을 때(서버 갔다오고) 좋아요 숫자 다시확인. 줄었으면 좋아요 취소로 바꾸고 상승이면 좋아요 클릭으로 확인
 			// console.log("oldCount=" + oldCount);
 			$.ajax({
 				type: 'GET',
-				url: '/abbs/board/like/' + bid,
+				url: '/mid/boardf/like/' + fid,
 				success: function(count) {				// count = <span id="likeCount">2</span>
 					$('#likeCount').replaceWith(count);
 					// console.log("count=" + count);		
@@ -26,8 +30,9 @@
 		function deleteBoard() {
 			$('#deleteModal').modal('show');
 		}
-	</script>
+	</script> -->
 </head>
+
 <body>
 	<div th:insert="~{fragments/base :: top}"></div>
 
@@ -41,54 +46,62 @@
 				<main id="main">
 					<h3><strong>게시글 상세 조회</strong>
 						<span style="font-size:16px">
-							<a th:href="@{/board/list(p=${currentBoardPage},f=${field},q=${query})}"><i class="fa-solid fa-table-list ms-5"></i> 목록</a>
-							<span th:if="${session.sessUid eq board.uid}">	<!-- 본인만 수정/삭제 가능 -->
-								<a th:href="@{/board/update/{x}(x=${board.bid})}"><i class="fa-solid fa-file-pen ms-3"></i> 수정</a>
-								<a href="javascript:void" onclick="deleteBoard()"><i class="fa-solid fa-trash ms-3"></i> 삭제</a>
-							</span>
-							<span th:if="${session.sessUid ne board.uid}">	
-								<a href="#" class="disabled-link"><i class="fa-solid fa-file-pen ms-3"></i> 수정</a>
-								<a href="#" class="disabled-link"><i class="fa-solid fa-trash ms-3"></i> 삭제</a>
-							</span>
+							<a th:href="@{/boardf/list(p=${currentBoardPage},f=${field},q=${query})}"><i
+									class="fa-solid fa-table-list ms-5"></i> 목록</a>
+
 						</span>
 					</h3>
 					<hr>
+					<!-- 제목 및 내용-->
 					<div class="row mb-3">
 						<div class="col-8">
-							<h5>[[${board.title}]]</h5>
-							<h6>글번호: [[${board.bid}]] &nbsp;&nbsp; 
-								<span th:text="${#temporals.format(board.modTime, 'yyyy-MM-dd HH:mm:ss')}"></span></h6>
-							<h6>첨부 파일:
-								<span th:each="file: ${fileList}">
-									<a th:href="@{/file/download/upload/{x}(x=${file})}" class="me-2" download>[[${file}]]</a>
-								</span>
+							<h5>[[${boardf.title}]] 종류: [[${boardf.foodCategory}]] </h5>
+							<h6>글번호: [[${boardf.fid}]] &nbsp;&nbsp;
 							</h6>
+
 						</div>
 						<div class="col-4 text-end">
-							<h5>[[${board.uname}]]</h5>
-							<h6>조회 [[${board.viewCount}]] &nbsp;&nbsp; 댓글 [[${board.replyCount}]]</h6>
+							<h6>조회 [[${boardf.viewCount}]] &nbsp;&nbsp; 댓글 [[${boardf.replyCount}]]</h6>
 							<h6>
-								<span th:if="${session.sessUid eq board.uid}">	<!-- 본인은 좋아요 누르지 못함 -->
+								<span th:if="${session.sessUid eq boardf.uid}"> <!-- 본인은 좋아요 누르지 못함 -->
 									<a href="#">
 										<span th:if="${session.likeClicked == 1}"><i id="likeIcon" class="fa-solid fa-thumbs-up"></i></span>
-										<span th:if="${session.likeClicked == 0}"><i id="likeIcon" class="fa-regular fa-thumbs-up"></i></span>
+										<span th:if="${session.likeClicked == 0}"><i id="likeIcon"
+												class="fa-regular fa-thumbs-up"></i></span>
 										[[${count}]]
 									</a>
 								</span>
-								<span th:if="${session.sessUid ne board.uid}">
-									<a href="#" th:onclick="likeClick([[${board.bid}]])">
+								<span th:if="${session.sessUid ne boardf.uid}">
+									<a href="#" th:onclick="likeClick([[${boardf.fid}]])">
 										<span th:if="${session.likeClicked == 1}"><i id="likeIcon" class="fa-solid fa-thumbs-up"></i></span>
-										<span th:if="${session.likeClicked == 0}"><i id="likeIcon" class="fa-regular fa-thumbs-up"></i></span>
+										<span th:if="${session.likeClicked == 0}"><i id="likeIcon"
+												class="fa-regular fa-thumbs-up"></i></span>
 										<span id="likeCount" th:text="${count}"></span>
 									</a>
 								</span>
 							</h6>
 						</div>
 						<hr>
-						<div class="col-12" th:utext="${board.content}"></div>
-						<br><br><hr>							
-					</div>
 
+						전화번호
+						<div class="col-12" th:utext="${boardf.tel}"></div>
+						운영시간
+						<div class="col-12" th:utext="${boardf.opening}"></div>
+						위치
+						<div class="col-12" th:utext="${boardf.location}"></div>
+						소개
+						<div class="col-12" th:utext="${boardf.info}"></div>
+						음식 사진
+						<div class="col-12" th:utext="${boardf.foodImg}"></div>
+						
+					
+						
+						<br><br>
+						<hr>
+					</div>
+					<!-- 제목 및 내용 끝-->
+
+					<!-- reply 보여주기-->
 					<div th:each="reply: ${replyList}">
 						<div class="row" th:if="${reply.isMine == 0}">
 							<div class="col-9">
@@ -108,9 +121,12 @@
 						</div>
 						<hr>
 					</div>
-					<form class="form-inline" action="/abbs/board/reply" method="post">
-						<input type="hidden" name="bid" th:value="${board.bid}">
-						<input type="hidden" name="uid" th:value="${board.uid}">
+						<!-- reply 보여주기 끝-->
+
+						<!-- reply 등록-->
+					<form class="form-inline" action="/mid/boardf/reply" method="post">
+						<input type="hidden" name="fid" th:value="${boardf.fid}">
+						<input type="hidden" name="uid" th:value="${boardf.uid}">
 						<div class="row d-flex mt-2" style="align-items: center;">
 							<div class="col-1">
 								<label class="col-form-label">댓글</label>
@@ -122,33 +138,12 @@
 								<button type="submit" class="btn btn-primary ms-3">등록</button>
 							</div>
 						</div>
-					</form>
-				</main>
-			</div>
-		</div>
-	</div>
+					</form> 
+					<!-- reply 등록 끝-->
 
-	<footer th:replace="~{fragments/base :: bottom}"></footer>
+					<footer th:replace="~{fragments/base :: bottom}"></footer>
 
-	<div class="modal" id="deleteModal">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<!-- Modal Header -->
-				<div class="modal-header">
-					<h4 class="modal-title">게시글 삭제</h4>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-				</div>
-			
-				<!-- Modal body -->
-				<div class="modal-body">
-					<strong>정말로 삭제하시겠습니까?</strong>
-					<div class="text-center mt-5">
-						<button type="button" class="btn btn-danger" th:onclick="|location.href='@{/board/delete/{x}(x=${board.bid})}'|">삭제</button>
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+
 </body>
+
 </html>
