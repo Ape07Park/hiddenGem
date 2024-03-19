@@ -8,13 +8,14 @@ public class Reply {
 	private LocalDateTime regTime;
 	private int isMine;
 	private String uname;
-	
+
 	// user와 연결
 	private String uid;
 	// 보드와 연결
 	private int fid;
-	
-	public Reply() {}
+
+	public Reply() {
+	}
 
 	public Reply(int rid, String comment, LocalDateTime regTime, int isMine, String uname, String uid, int fid) {
 		super();
@@ -27,9 +28,6 @@ public class Reply {
 		this.fid = fid;
 	}
 
-
-
-
 	public Reply(String comment, int isMine, String uid, int fid) {
 		super();
 		this.comment = comment;
@@ -38,106 +36,61 @@ public class Reply {
 		this.fid = fid;
 	}
 
-
-
-
 	public int getRid() {
 		return rid;
 	}
-
-
-
 
 	public void setRid(int rid) {
 		this.rid = rid;
 	}
 
-
-
-
 	public String getComment() {
 		return comment;
 	}
-
-
-
 
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
 
-
-
-
 	public LocalDateTime getRegTime() {
 		return regTime;
 	}
-
-
-
 
 	public void setRegTime(LocalDateTime regTime) {
 		this.regTime = regTime;
 	}
 
-
-
-
 	public int getIsMine() {
 		return isMine;
 	}
-
-
-
 
 	public void setIsMine(int isMine) {
 		this.isMine = isMine;
 	}
 
-
-
-
 	public String getUname() {
 		return uname;
 	}
-
-
-
 
 	public void setUname(String uname) {
 		this.uname = uname;
 	}
 
-
-
-
 	public String getUid() {
 		return uid;
 	}
-
-
-
 
 	public void setUid(String uid) {
 		this.uid = uid;
 	}
 
-
-
-
 	public int getFid() {
 		return fid;
 	}
 
-
-
-
 	public void setFid(int fid) {
 		this.fid = fid;
 	}
-
-
-
 
 	@Override
 	public String toString() {
@@ -145,9 +98,4 @@ public class Reply {
 				+ uname + ", uid=" + uid + ", fid=" + fid + "]";
 	}
 
-	
-	
-
-	
-	
 }

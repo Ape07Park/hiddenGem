@@ -22,6 +22,12 @@ public interface BoardFDao {
 	         + " where b.isDeleted=0 and ${field} like #{query}")
 	int getBoardCount(String field, String query);
 	
+	
+	@Select("SELECT * FROM boardf WHERE isDeleted =0 "
+			+ "	ORDER BY fid DESC")
+	List<BoardF> getBoardFListUsedMain();
+	
+	
 	@Select("SELECT b.*, u.uname FROM boardf b"
 			+ " JOIN users u ON b.uid=u.uid"
 			+ " WHERE b.isDeleted=0 and ${field} like #{query}"

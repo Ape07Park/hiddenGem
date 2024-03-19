@@ -1,7 +1,5 @@
 package com.example.HiddenGem.controller;
 
-
-
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -28,7 +26,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @Controller
 @RequestMapping("/file")
 public class FileController {
-	@Value("${spring.servlet.multipart.location}") private String uploadDir;
+@Value("${spring.servlet.multipart.location}") private String uploadDir;
 	
 	@GetMapping("/download/{dir}/{filename}")
 	public ResponseEntity<Resource> profile(@PathVariable String dir, @PathVariable String filename) {
@@ -111,6 +109,7 @@ public class FileController {
 			}
 			url = "/mid/file/download/image/" + filename;
 		}
+						
 		
 		String ajaxResponse = "<script>"
 				+ "	window.parent.CKEDITOR.tools.callFunction("
@@ -119,5 +118,4 @@ public class FileController {
 				+ "</script>";
 		return ajaxResponse;
 	}
-	
 }

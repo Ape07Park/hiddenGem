@@ -15,6 +15,14 @@ public class User {
 	public User() {
 	}
 
+	public User(String uid, String pwd, String uname, String email, String profile) {
+		this.uid = uid;
+		this.pwd = pwd;
+		this.uname = uname;
+		this.email = email;
+		this.profile = profile;
+	}
+
 	public User(String uid, String pwd, String uname, String email, LocalDate regDate, int isDeleted, String profile,
 			int access) {
 		super();
@@ -26,17 +34,6 @@ public class User {
 		this.isDeleted = isDeleted;
 		this.profile = profile;
 		this.access = access;
-	}
-	
-	
-
-	public User(String uid, String pwd, String uname, String email, String profile) {
-		super();
-		this.uid = uid;
-		this.pwd = pwd;
-		this.uname = uname;
-		this.email = email;
-		this.profile = profile;
 	}
 
 	public String getUid() {
@@ -99,8 +96,8 @@ public class User {
 		return access;
 	}
 
-	public void setAccess(int access) {
-		this.access = access;
+	public void setAccess(int acecss) {
+		this.access = acecss;
 	}
 
 	@Override
@@ -108,7 +105,5 @@ public class User {
 		return "User [uid=" + uid + ", pwd=" + pwd + ", uname=" + uname + ", email=" + email + ", regDate=" + regDate
 				+ ", isDeleted=" + isDeleted + ", profile=" + profile + ", access=" + access + "]";
 	}
-
-	
 
 }

@@ -17,7 +17,7 @@ public interface ReplyDao {
 			+ " where r.fid=#{fid}")
 	List<Reply> getReplyList(int fid);
 	
-	@Insert("insert into reply values(default, #{comment}, default, #{uid}, #{isMine}, #{fid})")
+	@Insert("insert into reply values(default, #{comment}, default, #{uid},#{fid}, #{isMine})")
 	void insertReply(Reply reply);
 	
 	

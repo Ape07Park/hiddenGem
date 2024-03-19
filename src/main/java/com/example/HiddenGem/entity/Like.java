@@ -1,18 +1,26 @@
 package com.example.HiddenGem.entity;
 
-public class LikeF {
+public class Like {
 	private int lid;
-	private int value;
 	private String uid;
-	
-	// BoardF와 연결
 	private int fid;
+	private int value;
 
-	public LikeF(int lid, int value, String uid, int fid) {
+	public Like() {
+	}
+
+	public Like(int lid, String uid, int fid, int value) {
+		super();
 		this.lid = lid;
-		this.value = value;
 		this.uid = uid;
 		this.fid = fid;
+		this.value = value;
+	}
+
+	public Like(String uid, int fid, int value) {
+		this.uid = uid;
+		this.fid = fid;
+		this.value = value;
 	}
 
 	public int getLid() {
@@ -21,14 +29,6 @@ public class LikeF {
 
 	public void setLid(int lid) {
 		this.lid = lid;
-	}
-
-	public int getValue() {
-		return value;
-	}
-
-	public void setValue(int value) {
-		this.value = value;
 	}
 
 	public String getUid() {
@@ -47,10 +47,17 @@ public class LikeF {
 		this.fid = fid;
 	}
 
+	public int getValue() {
+		return value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
+	}
+
 	@Override
 	public String toString() {
-		return "LikeF [lid=" + lid + ", value=" + value + ", uid=" + uid + ", fid=" + fid + "]";
+		return "LikeC [lid=" + lid + ", uid=" + uid + ", fid=" + fid + ", value=" + value + "]";
 	}
-	
-	
+
 }

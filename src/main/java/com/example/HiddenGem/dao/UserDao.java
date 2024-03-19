@@ -23,9 +23,9 @@ public interface UserDao {
          + " #{profile}, #{access})")
    void insertUser(User user);
    
-   @Update(" update users set pwd=#{pwd}, uname=#{uname}, email=#{email}, "
-			+ " profile=#{profile} where uid=#{uid}")
-	void updateUser(User user);
+   @Update("update users set pwd=#{pwd}, uname=#{uname}, email=#{email}, profile=#{profile}"
+         + "  where uid=#{uid}")
+   void updateUser(User user);
    
    @Update("update users set isDeleted=1 where uid=#{uid}")
    void deleteUser(String uid);

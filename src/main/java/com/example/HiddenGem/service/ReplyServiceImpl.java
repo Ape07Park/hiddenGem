@@ -13,8 +13,7 @@ public class ReplyServiceImpl implements ReplyService {
 	@Autowired private ReplyDao replyDao;
 
 	@Override
-	public List<com.example.HiddenGem.entity.Reply> getReplyList(int fid) {
-		
+	public List<Reply> getReplyList(int fid) {
 		return replyDao.getReplyList(fid);
 	}
 
