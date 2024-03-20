@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <header th:replace="~{fragments/base :: head}"></header>
+    <style>
+        td,
+        th {
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+    </style>
+    <script th:inline="javascript">
+        function search() {
+            const field = $('#field').val();
+            const query = $('#query').val();
+            const uri = '/mid/boardf/list?p=' + [[${ session.currentBoardPage }]] + '&f=' + field + '&q=' + query;
+            location.href = encodeURI(uri);
+        }
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</head>
+
+<body style="height: 2000px;">
+    <div th:insert="~{fragments/base :: top}"></div>
+    <div class="container" style="margin-top:80px;">
+
+        <!-- 맛집목록 -->
+        <div class="album py-5">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-">
+                <div class="col">
+                    <div class="card shadow-sm">
+
+                        <div th:with="selectedBoardf=${boardfList[0]}">
+                            <a th:href="@{'/boardf/detail/' + ${selectedBoardf.fid}} + '/'+ ${selectedBoardf.uid}">
+                                <!-- 0번 인덱스의 요소에 대한 내용을 출력 -->
+                                <div class="col-12" th:utext="${selectedBoardf.foodImg}"></div>
+                                <div class="card-body">
+                                    <p class="card-text"></p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                th:text="${selectedBoardf.foodCategory}"></button>
+                                        </div>
+                                        <small class="text-body-secondary" th:text="${selectedBoardf.location}"></small>
+                                        <small class="text-body-secondary" th:text="${selectedBoardf.tel}"></small>
+                                        <small class="text-body-secondary" th:text="${selectedBoardf.info}"></small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <div th:with="selectedBoardf=${boardfList[1]}">
+                            <a th:href="@{'/boardf/detail/' + ${selectedBoardf.fid}} + '/'+ ${selectedBoardf.uid}">
+                                <!-- 0번 인덱스의 요소에 대한 내용을 출력 -->
+                                <div class="col-12" th:utext="${selectedBoardf.foodImg}"></div>
+                                <div class="card-body">
+                                    <p class="card-text"></p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                th:text="${selectedBoardf.foodCategory}"></button>
+                                        </div>
+                                        <small class="text-body-secondary" th:text="${selectedBoardf.location}"></small>
+                                        <small class="text-body-secondary" th:text="${selectedBoardf.tel}"></small>
+                                        <small class="text-body-secondary" th:text="${selectedBoardf.info}"></small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <div th:with="selectedBoardf=${boardfList[2]}">
+                            <a th:href="@{'/boardf/detail/' + ${selectedBoardf.fid}} + '/'+ ${selectedBoardf.uid}">
+                                <!-- 0번 인덱스의 요소에 대한 내용을 출력 -->
+                                <div class="col-12" th:utext="${selectedBoardf.foodImg}"></div>
+                                <div class="card-body">
+                                    <p class="card-text"></p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                th:text="${selectedBoardf.foodCategory}"></button>
+                                        </div>
+                                        <small class="text-body-secondary" th:text="${selectedBoardf.location}"></small>
+                                        <small class="text-body-secondary" th:text="${selectedBoardf.tel}"></small>
+                                        <small class="text-body-secondary" th:text="${selectedBoardf.info}"></small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <div th:with="selectedBoardf=${boardfList[3]}">
+                            <a th:href="@{'/boardf/detail/' + ${selectedBoardf.fid}} + '/'+ ${selectedBoardf.uid}">
+                                <!-- 0번 인덱스의 요소에 대한 내용을 출력 -->
+                                <div class="col-12" th:utext="${selectedBoardf.foodImg}"></div>
+                                <div class="card-body">
+                                    <p class="card-text"></p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                th:text="${selectedBoardf.foodCategory}"></button>
+                                        </div>
+                                        <small class="text-body-secondary" th:text="${selectedBoardf.location}"></small>
+                                        <small class="text-body-secondary" th:text="${selectedBoardf.tel}"></small>
+                                        <small class="text-body-secondary" th:text="${selectedBoardf.info}"></small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <div th:with="selectedBoardf=${boardfList[4]}">
+                            <a th:href="@{'/boardf/detail/' + ${selectedBoardf.fid}} + '/'+ ${selectedBoardf.uid}">
+                                <!-- 0번 인덱스의 요소에 대한 내용을 출력 -->
+                                <div class="col-12" th:utext="${selectedBoardf.foodImg}"></div>
+                                <div class="card-body">
+                                    <p class="card-text"></p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                th:text="${selectedBoardf.foodCategory}"></button>
+                                        </div>
+                                        <small class="text-body-secondary" th:text="${selectedBoardf.location}"></small>
+                                        <small class="text-body-secondary" th:text="${selectedBoardf.tel}"></small>
+                                        <small class="text-body-secondary" th:text="${selectedBoardf.info}"></small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <!-- 맛집목록 -->
+
+    </div>
+
+   <!-- 슬라이드 -->
+<div id="demo" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+    </div>
+
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <!-- 주소, 이미지는 상황에 맞게 바꾸기 -->    
+            <a th:href="@{'/boardf/detail/' + 17 + '/' + james}">
+                <img src="/mid/file/download/image/1710839127471.png" class="d-block mx-auto" style="max-width: 50%; height: auto;">
+            </a>
+        </div>
+        <div class="carousel-item">
+            <a th:href="@{'/boardf/detail/' + 17 + '/' + james}">
+                <img src="/mid/file/download/image/1710839127471.png" class="d-block mx-auto" style="max-width: 50%; height: auto;">
+            </a>
+        </div>
+        <div class="carousel-item">
+            <a th:href="@{'/boardf/detail/' + 17 + '/' + james}">
+                <img src="/mid/file/download/image/1710839127471.png" class="d-block mx-auto" style="max-width: 50%; height: auto;">
+            </a>
+        </div>
+    </div>
+
+    <!-- Left and right controls/icons -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev" style="background-color: red;">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next" style="background-color: red;">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
+<!-- 슬라이드 -->
+
+    <footer th:replace="~{fragments/base :: bottom}"></footer>
+</body>
+
+</html>
