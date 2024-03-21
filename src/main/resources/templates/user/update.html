@@ -54,7 +54,15 @@
                                  <td><input type="text" name="email" class="form-control" th:value=${user.email}></td>
                               </tr>
                               <tr>
-                                 <td><label class="col-form-label">프로파일</label></td>
+                                 <td><label class="col-form-label">SNS</label></td>
+                                 <td><input type="text" name="sns" class="form-control" th:value=${user.sns}></td>
+                              </tr>
+                              <tr>
+                                 <td><label class="col-form-label">SNS Link</label></td>
+                                 <td><input type="text" name="link" class="form-control" th:value=${user.link}></td>
+                              </tr>
+                              <tr>
+                                 <td><label class="col-form-label">프로필 사진</label></td>
                                  <td><input type="file" name="profile" class="form-control" th:value=${user.profile}></td>
                               </tr>
                               <tr>

@@ -2,11 +2,9 @@ package com.example.HiddenGem.util;
 
 import java.util.List;
 
-import org.apache.commons.httpclient.Header;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Component;
 
 @Component // 총칭

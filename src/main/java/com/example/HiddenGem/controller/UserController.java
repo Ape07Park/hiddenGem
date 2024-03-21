@@ -175,7 +175,7 @@ public class UserController {
 		// 바꾼 것 적용
 		uSvc.updateUser(user);
 
-		return "redirect:/main";
+		return "redirect:/boardf/main";
 	}
 
 	@GetMapping("/mypage/{uid}")

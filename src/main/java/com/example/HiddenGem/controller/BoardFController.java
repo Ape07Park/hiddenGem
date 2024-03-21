@@ -74,6 +74,21 @@ public class BoardFController {
 		for (int i = startPage; i <= endPage; i++) {
 			pageList.add(String.valueOf(i));
 		}
+		field="location";
+		List<BoardF> boardfList = new ArrayList<>();
+		boardfList = boardFService.getBoardFListUsedMain();
+		List<BoardF> locationChange = new ArrayList<>();
+		for (BoardF board: boardfList) {
+			board.setLocation(board.getLocation().substring(8, 11)); // 구 부분만 자르기
+			board.setFoodImg(board.getFoodImg().split("\"")[3]);
+			if (board.getLocation().equals(query))
+				locationChange.add(board);
+		}
+		model.addAttribute("locationChange", locationChange);
+		
+		
+		int count = (int) Math.ceil(boardFService.getBoardFCount(field, "") / 4);
+		model.addAttribute("boardCount", count+2);
 
 		// 파라미터 넘기기- 어디갔다가 다시오면 안나올 수 있음
 
@@ -108,7 +123,7 @@ public class BoardFController {
 		// boardf에 들어가야 하는 것
 		BoardF board = new BoardF(title, foodCategory, opening, location, tel, info, sessUid, foodImg);
 		boardFService.insertBoardF(board);
-		return "redirect:/boardf/list";
+		return "/boardf/main";
 	}
 
 	/*
@@ -130,11 +145,35 @@ public class BoardFController {
 		if (!(jsonFiles == null || jsonFiles.equals(""))) {
 			List<String> fileList = jsonUtil.json2List(jsonFiles);
 			model.addAttribute("fileList", fileList);
+		}
+		
+		// 사진 경로 처리
+		BoardF getBoardF = boardFService.getBoardF(fid);
+		List<BoardF> boardfList = boardFService.getBoardFListUsedMain();
+		String pickPicList = "";
 
+		for (int i = 0; i < boardfList.size(); i++) {
+		    if (getBoardF.getFid() == boardfList.get(i).getFid()) {
+		        pickPicList = pickPicList + boardfList.get(i).getFoodImg(); // 이미지 URL을 문자열로 추가
+		    }
+		}
+		System.out.println(pickPicList);
+
+		ArrayList<String> pick = new ArrayList<>(); // pick 배열의 크기를 설정
+		String[] pickPicAll = pickPicList.split("</p>"); // 문자열을 </p>로 분리하여 배열 생성
+
+		for (int i = 0; i < pickPicAll.length; i++) {
+		    String pickPic = pickPicAll[i];
+		    String[] parts = pickPic.split("\""); // 큰따옴표로 문자열을 분리
+		    if (parts.length >= 2) { // 유효한 인덱스 검사
+		        pick.add(parts[3]); // pick 배열에 분리된 문자열의 두 번째 요소를 저장 (src 속성 값)
+		    }
 		}
 
-		model.addAttribute("boardf", boardf);
+		model.addAttribute("boardf", getBoardF); // 단일 객체를 모델에 추가
+		model.addAttribute("pickPicList", pick); // 배열을 모델에 추가
 
+		
 		// 좋아요 처리
 		Like like = likeService.getLike(fid, sessUid);
 		if (like == null) {
@@ -162,8 +201,8 @@ public class BoardFController {
 		/*
 		 * 메뉴 보여주기
 		 */
-
-		// 나중에 추가하기
+//		List<Menu> menuList = menuService.getMenuList(boardf.getTitle());
+//		model.addAttribute("menuList" , menuList);
 		Menu menu = menuService.getMenuByName(boardf.getTitle());
 		String[] name = menu.getFood().split(", ");
 		String[] price = menu.getPrice().split(", ");
@@ -211,15 +250,24 @@ public class BoardFController {
 	}
 
 	@GetMapping("/main")
-	public String main(Model model, String field, String query) {
-		List<BoardF> boardfList = new ArrayList<>();
-		boardfList = boardFService.getBoardFListUsedMain();
-		field = "b.location";
-		query = "";
-		int count = (int) Math.ceil(boardFService.getBoardFCount(field, query) / 4);
+	public String main(Model model) {
+		List<BoardF> boardfList = boardFService.getBoardFListUsedMain();
+		int count = (int) Math.ceil(boardFService.getBoardFCount("b.location", "") / 4);
+		List<BoardF> pickOnePic = new ArrayList<>();
+		for (BoardF board: boardfList) {
+			board.setFoodImg(board.getFoodImg().split("\"")[3]);
+			pickOnePic.add(board);
+		}
+		System.out.println(pickOnePic);
+		model.addAttribute("locationChange", pickOnePic);
 		model.addAttribute("boardfList", boardfList);
-		model.addAttribute("boardCount", count);
+		model.addAttribute("boardCount", count+2);
 
 		return "boardf/main";
+	}
+	
+	@GetMapping("/company")
+	public String company() {
+		return "boardf/company";
 	}
 }
